@@ -1,0 +1,18 @@
+file,block,description
+indent,1,With indenter
+indent,2,Without indenter
+indent_min,1,Initial minimization (no indenter)
+indent_min,2,Indenter y=13.0
+indent_min,3,Indenter y=12.5
+indent_min,4,Indenter y=12.0
+indent_min,5,Indenter y=11.4
+indent_min,6,Indenter y=11.2
+indent_min,7,Indenter y=11.0
+min_box,1,Melt
+min_box,2,Minimize atoms only
+min_box,3,Box/relax iso Pxx=Pyy=1.5
+min_box,4,Box/relax aniso Pxx=Pyy=1.5
+min_box,5,Box/relax x=1.0 y=2.0
+min_box,6,Aniso Pxx=Pyy=1.5 tighter convergence (ftol=1.0)
+min_box,7,Aniso Pxx=Pyy=1.5 tighter convergence (ftol=0.01)
+min_box,8,nreset 100 + minimize ftol=1e-4
