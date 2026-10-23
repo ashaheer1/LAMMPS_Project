@@ -20,7 +20,7 @@ The aim of this project is to build a parser that works from the structure of th
 
 # Project Structure and How to Run
 
-LAMMPS_Project/
+LAMMPS_Project/<br>
 ├── raw/                  # original LAMMPS log files acquired from LAMMPS Github Repo
 ├── processed/            # renamed copies of the logs
 ├── extracted/            # one CSV per thermo block
