@@ -31,7 +31,7 @@ LAMMPS_Project/<br>
 ├── run_pipeline.sh       # runs the whole pipeline<br>
 └── README.md<br>
 
-Requirements are Linux or WSL with bash 4+ and awk. Pythong 3 with pandas and matplotlib and other imports are required too. To run the whole pipeline in bash:
+Requirements are Linux or WSL with bash 4+ and awk. Python 3 with pandas and matplotlib and other imports are required too. To run the whole pipeline in bash:
 
 git clone https://github.com/ashaheer1/LAMMPS_Project.git<br>
 cd LAMMPS_Project<br>
@@ -42,7 +42,15 @@ The driver script clears the old outputs, rebuilds everything from raw/, and wri
 
 # The Input Data
 
-For this project, I used four serial (1-processor) example logs from the LAMMPS examples of melt, min_box, indent, and indent_min. The trailing .1 in the original filenames is the number of MPI processors that were used for the run, and it is not a file format. I only used the .1 files. Table 1 shows that each log contains.
+For this project, I used four serial (1-processor) example logs from the LAMMPS examples of melt, min_box, indent, and indent_min. The trailing .1 in the original filenames is the number of MPI processors that were used for the run, and it is not a file format. I only used the .1 files. 
+
+The simulation data analyzed in this project were generated using example LAMMPS simulations from the official LAMMPS repository:
+
+- [Melt Example](https://github.com/lammps/lammps/tree/develop/examples/melt)
+- [Minimization Example](https://github.com/lammps/lammps/tree/develop/examples/min)
+- [Indentation Example](https://github.com/lammps/lammps/tree/develop/examples/indent)
+
+Table 1 shows that each log contains.
 
 <table align="center" border="1"> <tr> <th>Log</th> <th>Thermo Blocks</th> <th>What the Blocks Are</th> </tr> <tr> <td><code>melt</code></td> <td>1</td> <td>Melt simulation</td> </tr> <tr> <td><code>indent</code></td> <td>2</td> <td>Block 1 with the indenter, block 2 without the indenter</td> </tr> <tr> <td><code>indent_min</code></td> <td>7</td> <td>Initial minimization, then six indenter positions (y = 13.0, 12.5, 12.0, 11.4, 11.2, 11.0)</td> </tr> <tr> <td><code>min_box</code></td> <td>8</td> <td>Block 1 melt, block 2 minimize atoms only, block 3 <code>box/relax iso</code> (Pxx = Pyy = 1.5), block 4 <code>box/relax aniso</code> (1.5), block 5 <code>box/relax x 1.0 y 2.0</code>, blocks 6 and 7 same as block 4 with tighter force tolerances, block 8 <code>nreset 100</code> + minimize</td> </tr> </table> <div align="center">
 
