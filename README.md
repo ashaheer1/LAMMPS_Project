@@ -21,21 +21,21 @@ The aim of this project is to build a parser that works from the structure of th
 # Project Structure and How to Run
 
 LAMMPS_Project/<br>
-├── raw/                  # original LAMMPS log files acquired from LAMMPS Github Repo
-├── processed/            # renamed copies of the logs
-├── extracted/            # one CSV per thermo block
-├── plots/                # generic plots (one per CSV)
-│   └── curated_plots/    # curated plots
-├── scripts/              # bash and Python scripts
-├── block_labels.csv      # description of every thermo block
-├── run_pipeline.sh       # runs the whole pipeline
-└── README.md
+├── raw/                  # original LAMMPS log files acquired from LAMMPS Github Repo<br>
+├── processed/            # renamed copies of the logs<br>
+├── extracted/            # one CSV per thermo block<br>
+├── plots/                # generic plots (one per CSV)<br>
+│   └── curated_plots/    # curated plots<br>
+├── scripts/              # bash and Python scripts<br>
+├── block_labels.csv      # description of every thermo block<br>
+├── run_pipeline.sh       # runs the whole pipeline<br>
+└── README.md<br>
 
 Requirements are Linux or WSL with bash 4+ and awk. Pythong 3 with pandas and matplotlib and other imports are required too. To run the whole pipeline in bash:
 
-git clone https://github.com/ashaheer1/LAMMPS_Project.git
-cd LAMMPS_Project
-./run_pipeline.sh
+git clone https://github.com/ashaheer1/LAMMPS_Project.git<br>
+cd LAMMPS_Project<br>
+./run_pipeline.sh<br>
 
 The driver script clears the old outputs, rebuilds everything from raw/, and writes the CSV files to extracted/ and the plots to plots/. The block_labels.csv files is also copied to extracted/ to assist in labeling blocks and while plotting these blocks.
 
