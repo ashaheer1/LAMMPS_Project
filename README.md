@@ -56,19 +56,47 @@ Table 1 shows that each log contains.
 
 <table align="center" border="1"> <tr> <th>Log</th> <th>Thermo Blocks</th> <th>What the Blocks Are</th> </tr> <tr> <td><code>melt</code></td> <td>1</td> <td>Simulation of Atomic Melt</td> </tr> <tr> <td><code>indent</code></td> <td>2</td> <td>Block 1 with the indenter, block 2 without the indenter</td> </tr> <tr> <td><code>indent_min</code></td> <td>7</td> <td>Initial minimization with indenter, then six diffeent indenter positions: y = 13.0, 12.5, 12.0, 11.4, 11.2, 11.0</td> </tr> <tr> <td><code>min_box</code></td> <td>8</td> <td>Block 1 melt simulation<br> Block 2 minimize atoms only<br> Block 3 <code>box/relax iso</code> (Pxx = Pyy = 1.5)<br> Block 4 <code>box/relax aniso</code> (1.5)<br> Block 5 <code>box/relax x = 1.0 y = 2.0</code><br> Blocks 6 and 7 same as block 4 with tighter force tolerances<br> Block 8 <code>nreset 100</code> + even tighter force tolerance</td> </tr> </table> <div align="center">
 
-#### <align="center"> Table 1. The four LAMMPS logs and the thermo blocks inside each one
+#### Table 1. The four LAMMPS logs and the thermo blocks inside each one
 
 </div>
 
-### Step 1: Organizing the Raw Files
+## Step 1: Organizing the Raw Files
+
 The raw filenames are inconsistent (for example `log.27Nov18.min.box.g++.1` and `log.8Apr21.melt.g++.1`), so the first script, `organize.sh`, copies each file from `raw/` into `processed/` with a clean name (`melt.log`, `indent.log`, `indent_min.log`, `min_box.log`). I used an explicit filename map instead of pattern matching, because pattern matching on inconsistend names is harder and fragile. Adding a new log only needs one new line in the map.
 
-# Results
+## Step 2: Extracting the Thermo Blocks
 
-Initially we created general plots for each block....
+The second script, `extract.sh`, loops over every file in `processed/` and used awk to do the extraction. Whenever line starts with Step, a new block begins, awk saves that line as the CSV header and opens a new file. While inside a block, every row is converted from whitespace-separated to comma-separated and written to that file. When a line starting with `Loop time of...` appears, the block is closed. Then it moves on the the next block where it again starts at `Step` and ends at `Loop time of...`. The output is one file per block, named `<log>_block<N>.csv`, for example `min_block_block3.csv`. Because the script only looks for these two markers, it handles the changing in `min_box` and `indent` without any special cases.
 
-# Min Box Analysis
+## Step 3: Summarizing the Extraction
 
-This is some of the results....
+The third script, `summarize.sh`, is a sanity check of our result so far. For every CSV file in `extracted/` it prints the number of rows, the number of columns, the column names, and the description of that block. This made it easy to confirm that the block counts matched what I counted before and expected from the logs (1 for `melt`, 2 for `indent`, 7 for `indent_min`, and 8 for `min_box`).
 
-![Pressure Result](plots/melt_block1.png)
+## Labeling the Blocks
+The extraction step is generic in this case, so it does not know what each block means physically. It merely separates each file into different blocks. This information is thus stored by hand in `block_labels.csv`, with one row per block (log name, block number, description) by reading the original files in `raw/`. For example, `indent_min` block 3 is described as "Indenter y=12.5". The plotting scripts read this file and use the descriptions in titles and labels. This keeps the parser general and puts all the knowledge in one place.
+
+## Step 4: Plotting
+
+### Generic Plots
+
+The first plotting script makes a generic plot for every CSV. it reads the column of each file and plots every column except `Step` against `Step`, with each block description as the title. Since it reads the column names from the file instead of hardcoding them, it makes it easier and it works for every block. This produced one plot per block in `plots/`, and Figure 1 shows an example.
+
+<div align="center"> <img src="plots/melt_block1.png"width="500"></div><div align="center">
+
+### Figure 1. Example of a Generic Plot (Every Column vs Step) for the melt block
+</div>
+
+
+### Curated Plots
+
+After the generic plots, I made a set of curated plots for each simulation. These curated plots are thus saved in `plots/curated_plots/`
+
+#### Melt
+
+Figures 2 and 3 show the temperature and the total energy against the `Step` for the melt simulation
+
+<div align="center"> <img src="plots/curated_plots/Melt_Temp_Plot.png"width="500"></div><div align="center">
+
+### Figure 2. Temperature vs. Step for the melt simulation
+</div>
+
