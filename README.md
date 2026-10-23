@@ -18,18 +18,20 @@ To provide some background, LAMMPS is a molecular dynamics code, and every simul
 
 The aim of this project is to build a parser that works from the structure of the file instead. Every thermo block starts at a line beginning with "Step" and ends at the line beginning with "Loop time of...". Each block is written to its own CSV file with its own header, and then the blocks are plotted. The project combines Linux command-line tools (bash,awk) for the file handling and extraction with Python (pandas, matplotlib) for the plotting.
 
-# Project Structure and How to Run
+## Project Structure and How to Run
 
-LAMMPS_Project/<br>
-├── raw/                  # original LAMMPS log files acquired from LAMMPS Github Repo<br>
-├── processed/            # renamed copies of the logs<br>
-├── extracted/            # one CSV per thermo block<br>
-├── plots/                # generic plots (one per CSV)<br>
-│   └── curated_plots/    # curated plots<br>
-├── scripts/              # bash and Python scripts<br>
-├── block_labels.csv      # description of every thermo block<br>
-├── run_pipeline.sh       # runs the whole pipeline<br>
-└── README.md<br>
+```text
+LAMMPS_Project/
+├── raw/                               # original LAMMPS log files acquired from LAMMPS Github Repo
+├── processed/                         # renamed copies of the logs
+├── extracted/                         # one CSV per thermo block
+├── plots/                             # generic plots (one per CSV)
+│   └── curated_plots/                 # curated plots
+├── scripts/                           # bash and Python scripts
+├── block_labels.csv                   # description of every thermo block
+├── run_pipeline.sh                    # runs the whole pipeline
+└── README.md
+```
 
 Requirements are Linux or WSL with bash 4+ and awk. Python 3 with pandas and matplotlib and other imports are required too. To run the whole pipeline in bash:
 
