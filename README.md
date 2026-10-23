@@ -98,5 +98,54 @@ Figures 2 and 3 show the temperature and the total energy against the `Step` for
 <div align="center"> <img src="plots/curated_plots/Melt_Temp_Plot.png"width="500"></div><div align="center">
 
 ### Figure 2. Temperature vs. Step for the melt simulation
+</div><div align="center"><img src="plots/curated_plots/Melt_TotEng_Plot.png"width="500">
+</div><div align="center">
+
+### Figure 3. Total Energy vs Step for the melt simulation
+
+</div>
+
+************************* WRITE ABOUT THE FIGURES *********************
+
+#### Indenter On vs. Off
+
+The `indent` log has two blocks. In the first one the indenter is present, and in the second one it is removed. Essentially, to see the difference in results between indenter's presence. The second run does not start from step 0. It starts at step 30,000, because it continues from the end of the first run and LAMMPS keeps counting steps across `run` commands. Therefore, I plotted both blocks on one continuous step axis (x-axis), so the plots show one trajectory in two phases instead of two separate runs. Figure 4,5, and 6 show the temperature, total energy and volume.
+
+<div align="center"><img src="plots/curated_plots/Indenter_On_Off_Temp_Plot.png"width="500"></div><div align="center">
+
+### Figure 4. Temperature Plot with Indenter On and Off
+</div><div align="center"><img src="plots/curated_plots/Indenter_On_Off_TotEng_Plot.png"width="500"></div><div align="center">
+
+### Figure 5. Total Energy Plot with Indenter On and Off
+
+</div><div align="center"><img src="plots/curated_plots/Indenter_On_Off_Vol_Plot.png"width="500"></div><div align="center">
+
+### Figure 6. Volume Plot with Indenter On and Off
+
+</div>
+
+************************* WRITE ABOUT THE INDENTER REMOVED AND HOW GRAPH CHANGED **********************
+
+#### Energy vs. Indenter Position
+
+The `indent_min` log has seven blocks. The first one is an initial minimization before the indenter is introduced, and the other six minimize the system with the indenter at various distances: y = 13.0, 12.5, 12.0, 11.4, 11.2 and 11.0. For each of those six blocks I took the final row (the minimized state) and plotted it against the indenter position, which is shown in Figure 7.
+
+<div align="center"><img src="plot/curated_plots/Indenter_Distance_Plot.png"width="500"></div><div align="center">
+
+### Figure 7. Final energy of each minimization vs indenter position
+
+</div>
+
+****************** WRITE ABOUT WHAT HAPPENS TO ENERGY AS INDENTER MOVES ***************
+
+
+#### Minimization and Box Relaxation (min_box)
+
+This `min_box` log is the most complex one, with eight blocks. Block 1 is the melt, which is similar to previous atomic melt simulation. Block 2 to 8 are minimizations with different settings (Table 1). Figure 8 shows the convergence of atoms-only minimization, and Figure 9 shows the potential energy against the step for block 2 to 8. The x-axes are not shared, because the minimizations converge in very different number of steps.
+
+<div align="center"><img src="plots/curated_plots/Min_Box_Atom_Min_Convergence_Plot.png"width="500"></div><div align="center">
+
+### Figure 8. Convergence of the atoms-only minimization
+
 </div>
 
