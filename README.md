@@ -130,7 +130,7 @@ The `indent` log has two blocks. In the first one the indenter is present, and i
 
 The `indent_min` log has seven blocks. The first one is an initial minimization before the indenter is introduced, and the other six minimize the system with the indenter at various distances: y = 13.0, 12.5, 12.0, 11.4, 11.2 and 11.0. For each of those six blocks I took the final row (the minimized state) and plotted it against the indenter position, which is shown in Figure 7.
 
-<div align="center"><img src="plot/curated_plots/Indenter_Distance_Plot.png"width="500"></div><div align="center">
+<div align="center"><img src="plots/curated_plots/Indenter_Distance_Plot.png"width="500"></div><div align="center">
 
 ### Figure 7. Final energy of each minimization vs indenter position
 
@@ -147,7 +147,7 @@ This `min_box` log is the most complex one, with eight blocks. Block 1 is the me
 
 ### Figure 8. Convergence of the atoms-only minimization
 
-</div><div align="center"><img src="plots/curated_plots/Min_Box_Convergence_Plot.png"width="500"></div><div align="center">
+</div><div align="center"><img src="plots/curated_plots/Min_Box_Convergence_Plots.png"width="700"></div><div align="center">
 
 ### Figure 9. Potential Energy vs. Step for the minimization blocks (Block 2 to 8)
 
@@ -157,7 +157,7 @@ This `min_box` log is the most complex one, with eight blocks. Block 1 is the me
 
 Block 3, 4, and 5 relax the box towards a target pressure with `box/relax`. To see whether the targets were reached, I plotted and compared the final Pxx and Pyy pressure of each block to its target (1.5/1.5 for block 3 and 4, and 1.0/2.0 for block 5). Figure 10 shows this comparison as a grouped bar chart, and Figure 11, 12, and 13 show the pressure evolved during each block. 
 
-<div align="center"><img src="plot/curated_plots/Block3-5_Pressure_Min_Box_Bar_Plot.png"width="600"></div><div align="center">
+<div align="center"><img src="plots/curated_plots/Block3-5_Pressures_Min_Box_Bar_Plot.png"width="600"></div><div align="center">
 
 ### Figure 10. Target vs. Achieved Pxx and Pyy for blocks 3 to 5
 
