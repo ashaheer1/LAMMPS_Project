@@ -35,9 +35,11 @@ LAMMPS_Project/
 
 Requirements are Linux or WSL with bash 4+ and awk. Python 3 with pandas and matplotlib and other imports are required too. To run the whole pipeline in bash:
 
+```bash
 git clone https://github.com/ashaheer1/LAMMPS_Project.git<br>
 cd LAMMPS_Project<br>
 ./run_pipeline.sh<br>
+```
 
 The driver script clears the old outputs, rebuilds everything from raw/, and writes the CSV files to extracted/ and the plots to plots/. The block_labels.csv files is also copied to extracted/ to assist in labeling blocks and while plotting these blocks.
 
