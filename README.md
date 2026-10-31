@@ -147,5 +147,40 @@ This `min_box` log is the most complex one, with eight blocks. Block 1 is the me
 
 ### Figure 8. Convergence of the atoms-only minimization
 
+</div><div align="center"><img src="plots/curated_plots/Min_Box_Convergence_Plot.png"width="500"></div><div align="center">
+
+### Figure 9. Potential Energy vs. Step for the minimization blocks (Block 2 to 8)
+
 </div>
 
+*************** WRITE ABOUT WHAT HAPPENS TO POTENTIAL ENERGY AND TOLERANCE IN THESE PLOTS ***********
+
+Block 3, 4, and 5 relax the box towards a target pressure with `box/relax`. To see whether the targets were reached, I plotted and compared the final Pxx and Pyy pressure of each block to its target (1.5/1.5 for block 3 and 4, and 1.0/2.0 for block 5). Figure 10 shows this comparison as a grouped bar chart, and Figure 11, 12, and 13 show the pressure evolved during each block. 
+
+<div align="center"><img src="plot/curated_plots/Block3-5_Pressure_Min_Box_Bar_Plot.png"width="600"></div><div align="center">
+
+### Figure 10. Target vs. Achieved Pxx and Pyy for blocks 3 to 5
+
+</div><div align="center"><img src="plots/curated_plots/Block_3_Pressure_Convergence_Plots.png"width="600"></div><div align="center">
+
+### Figure 11. Pressure Convergence for Block 3 (box/relax iso)
+
+</div><div align="center"><img src="plots/curated_plots/Block_4_Pressure_Convergence_Plots.png"width="600"></div><div align="center">
+
+### Figure 12. Pressure Convergence for Block 4 (box/relax aniso)
+
+</div><div align="center"><img src="plots/curated_plots/Block_5_Pressure_Convergence_Plots.png"width="600"></div><div align="center">
+
+### Figure 13. Pressure Convergence for Block 5 (box/relax x=1.0, y=2.0)
+
+</div>
+
+how close did each block get to its target? Minimization stops on a tolerance, so the achieved values are not expected to match the targets exactly
+
+************ Write about how close each block is to its target. Write about minimization is not expected to match the target values as it stops on a tolerance ****************
+
+## Conclusion
+
+Overall, this project built a pipeline for LAMMPS log files that are messy, convoluted, and not uniformly structured. First, a bash script organizes the raw LAMMPS files, an awk script finds every thermo block by its start and end markers and writes it to its own CSV. Then a summary script checks the result, and Python script plots every block as well as a set of curated plots that compare different blocks. Additionally, a driver script runs all of it with one command called `run_pipeline.sh`. The main point is that the parser works from the structure of the file, so it handles the changing column, and the physical meaning of each block is kept in a separate labels file. 
+
+However, there are some certain limitation in the scripts. In this project, only four serial examples were used, and every new log needs a new entry in the filename map in `organize.sh` and rows in `block_labels.csv`. In the future, the parallel (`.4`) runs of the same examples could be parsed as well, to confirm that the physics matches between serial and parallel runs. Lastly, pipeline could also be scheduled with `cron`, and tested on the output of my own simulations instead of the example logs attained through LAMMPS github repo.
