@@ -14,9 +14,9 @@ Additionally, The citation for LAMMPS is as follows:
 
 Thompson, A. P., Aktulga, H. M., Berger, R., Bolintineanu, D. S., Brown, W. M., Crozier, P. S., et al. (2022). LAMMPS - a flexible simulation tool for particle-based materials modeling at the atomic, meso, and continuum scales. Comp. Phys. Comm., 271, 108171. DOI: 10.1016/j.cpc.2021.108171
 
-To provide some background, LAMMPS is a molecular dynamics code, and every simulation writes a log file. A log file is not just a table of numbers. It contains the LAMMPS version and setup information, the input commands that were run, one or more thermo tables (Step, Temp, energies, pressure, and so on), and a timing and performance summary at the end. Moreover, the thermo columns are not the same from file to file, and they can even change inside a single file. For example, the minimization box log starts with the columns Step Temp Energy per pair, Energy per mol, Total Energy, Press and later switches to a different set of columns. Therefore, a parser that assumes fixed column positions breaks on real data.
+To provide some background, LAMMPS is a molecular dynamics code, and every simulation writes a log file. A log file is not just a table of numbers. It contains the LAMMPS version and setup information, the input commands that were run, one or more thermo tables (Step, Temp, energies, pressure, and so on), and a timing and performance summary at the end. Moreover, the thermo columns are not the same from file to file, and they can even change inside a single file. For example, the minimization box `min_box` log starts with the columns `Step  Temp  E_pair  E_mol  TotEng  Press` and later switches to a different set of columns. Therefore, a parser that assumes fixed column positions breaks on real data.
 
-The aim of this project is to build a parser that works from the structure of the file instead. Every thermo block starts at a line beginning with "Step" and ends at the line beginning with "Loop time of...". Each block is written to its own CSV file with its own header, and then the blocks are plotted. The project combines Linux command-line tools (bash,awk) for the file handling and extraction with Python (pandas, matplotlib) for the plotting.
+The aim of this project is to build a parser that works from the structure of the file instead. Every thermo block starts at a line beginning with `Step` and ends at the line beginning with `Loop time of...`. Each block is written to its own CSV file with its own header, and then the blocks are plotted. The project combines Linux command-line tools (bash,awk) for the file handling and extraction with Python (pandas, matplotlib) for the plotting.
 
 ## Project Structure and How to Run
 
@@ -36,17 +36,17 @@ LAMMPS_Project/
 Requirements are Linux or WSL with bash 4+ and awk. Python 3 with pandas and matplotlib and other imports are required too. To run the whole pipeline in bash:
 
 ```bash
-git clone https://github.com/ashaheer1/LAMMPS_Project.git<br>
-cd LAMMPS_Project<br>
-./run_pipeline.sh<br>
+git clone https://github.com/ashaheer1/LAMMPS_Project.git
+cd LAMMPS_Project
+./run_pipeline.sh
 ```
 
-The driver script clears the old outputs, rebuilds everything from raw/, and writes the CSV files to extracted/ and the plots to plots/. The block_labels.csv files is also copied to extracted/ to assist in labeling blocks and while plotting these blocks.
+The driver script clears the old outputs, rebuilds everything from `raw/`, and writes the CSV files to `extracted/` and the plots to `plots/`. The block_labels.csv files is also copied to extracted/ to assist in labeling blocks and while plotting these blocks.
 
 
 # The Input Data
 
-For this project, I used four serial (1-processor) example logs from the LAMMPS examples of melt, min_box, indent, and indent_min. The trailing .1 in the original filenames is the number of MPI processors that were used for the run, and it is not a file format. I only used the .1 files. 
+For this project, I used four serial (1-processor) example logs from the LAMMPS examples of melt, min_box, indent, and indent_min. The trailing `.1` in the original filenames is the number of MPI processors that were used for the run, and it is not a file format. I only used the `.1` files. 
 
 The simulation data analyzed in this project were generated using example LAMMPS simulations from the official LAMMPS repository:
 
