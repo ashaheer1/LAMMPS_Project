@@ -147,7 +147,7 @@ This `min_box` log is the most complex one, with eight blocks. Block 1 is the me
 
 ### Figure 8. Convergence of the atoms-only minimization (Block 2)
 
-</div><div align="center"><img src="plots/curated_plots/Min_Box_Convergence_Plots.png"width="700"></div><div align="center">
+</div><div align="center"><img src="plots/curated_plots/Min_Box_Convergence_Plots.png"width="1000"></div><div align="center">
 
 ### Figure 9. Potential Energy vs. Step for the minimization blocks (Block 3 to 8)
 
@@ -157,7 +157,7 @@ This `min_box` log is the most complex one, with eight blocks. Block 1 is the me
 
 Block 3, 4, and 5 relax the box towards a target pressure with `box/relax`. To see whether the targets were reached, I plotted and compared the final Pxx and Pyy pressure of each block to its target (1.5/1.5 for block 3 and 4, and 1.0/2.0 for block 5). Figure 10 shows this comparison as a grouped bar chart, and Figure 11, 12, and 13 show the pressure evolved during each block. 
 
-<div align="center"><img src="plots/curated_plots/Block3-5_Pressures_Min_Box_Bar_Plot.png"width="500"></div><div align="center">
+<div align="center"><img src="plots/curated_plots/Block3-5_Pressures_Min_Box_Bar_Plot.png"width="700"></div><div align="center">
 
 ### Figure 10. Target vs. Achieved Pxx and Pyy for blocks 3 to 5
 
@@ -165,7 +165,7 @@ Block 3, 4, and 5 relax the box towards a target pressure with `box/relax`. To s
 
 ### Figure 11. Pressure Convergence for Block 3 (box/relax iso)
 
-</div><div align="center"><img src="plots/curated_plots/Block_4_Pressure_Convergence_Plots.png"width="500"></div><div align="center">
+</div><div align="center"><img src="plots/curated_plots/Block_4_Pressure_Convergence_Plots.png"width="700"></div><div align="center">
 
 ### Figure 12. Pressure Convergence for Block 4 (box/relax aniso)
 
