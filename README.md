@@ -141,15 +141,15 @@ The `indent_min` log has seven blocks. The first one is an initial minimization 
 
 #### Minimization and Box Relaxation (min_box)
 
-This `min_box` log is the most complex one, with eight blocks. Block 1 is the melt, which is similar to previous atomic melt simulation. Block 2 to 8 are minimizations with different settings (Table 1). Figure 8 shows the convergence of atoms-only minimization, and Figure 9 shows the potential energy against the step for block 2 to 8. The x-axes are not shared, because the minimizations converge in very different number of steps.
+This `min_box` log is the most complex one, with eight blocks. Block 1 is the melt, which is similar to previous atomic melt simulation. Block 2 to 8 are minimizations with different settings (Table 1). Figure 8 shows the convergence of atoms-only minimization (Block 2), and Figure 9 shows the potential energy against the step for block 3 to 8. The x-axes are not shared, because the minimizations converge in very different number of steps.
 
 <div align="center"><img src="plots/curated_plots/Min_Box_Atom_Min_Convergence_Plot.png"width="500"></div><div align="center">
 
-### Figure 8. Convergence of the atoms-only minimization
+### Figure 8. Convergence of the atoms-only minimization (Block 2)
 
 </div><div align="center"><img src="plots/curated_plots/Min_Box_Convergence_Plots.png"width="700"></div><div align="center">
 
-### Figure 9. Potential Energy vs. Step for the minimization blocks (Block 2 to 8)
+### Figure 9. Potential Energy vs. Step for the minimization blocks (Block 3 to 8)
 
 </div>
 
