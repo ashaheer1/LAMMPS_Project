@@ -7,7 +7,7 @@
 
 This project analyzes builds a pipeline that turns raw LAMMPS log files into clean CSV files and plots, and runs with a single command (bash script).
 
-THe simulation logs used in this project come from the sample set distributed with LAMMPS in a LAMMPS Github Repo. The Github repo is as following:
+THe simulation logs used in this project come from the sample set distributed with LAMMPS in a LAMMPS Github Repo.
 
 
 Additionally, The citation for LAMMPS is as follows:
@@ -44,7 +44,7 @@ cd LAMMPS_Project
 The driver script clears the old outputs, rebuilds everything from `raw/`, and writes the CSV files to `extracted/` and the plots to `plots/`. The block_labels.csv files is also copied to extracted/ to assist in labeling blocks and while plotting these blocks.
 
 
-# The Input Data
+## The Input Data
 
 For this project, I used four serial (1-processor) example logs from the LAMMPS examples of melt, min_box, indent, and indent_min. The trailing `.1` in the original filenames is the number of MPI processors that were used for the run, and it is not a file format. I only used the `.1` files. 
 
@@ -58,7 +58,7 @@ Table 1 shows that each log contains.
 
 <table align="center" border="1"> <tr> <th>Log</th> <th>Thermo Blocks</th> <th>What the Blocks Are</th> </tr> <tr> <td><code>melt</code></td> <td>1</td> <td>Simulation of Atomic Melt</td> </tr> <tr> <td><code>indent</code></td> <td>2</td> <td>Block 1 with the indenter, block 2 without the indenter</td> </tr> <tr> <td><code>indent_min</code></td> <td>7</td> <td>Initial minimization with indenter, then six diffeent indenter positions: y = 13.0, 12.5, 12.0, 11.4, 11.2, 11.0</td> </tr> <tr> <td><code>min_box</code></td> <td>8</td> <td>Block 1 melt simulation<br> Block 2 minimize atoms only<br> Block 3 <code>box/relax iso</code> (Pxx = Pyy = 1.5)<br> Block 4 <code>box/relax aniso</code> (1.5)<br> Block 5 <code>box/relax x = 1.0 y = 2.0</code><br> Blocks 6 and 7 same as block 4 with tighter force tolerances<br> Block 8 <code>nreset 100</code> + even tighter force tolerance</td> </tr> </table> <div align="center">
 
-#### Table 1. The four LAMMPS logs and the thermo blocks inside each one
+**Table 1. The four LAMMPS logs and the thermo blocks inside each one**
 
 </div>
 
@@ -68,7 +68,7 @@ The raw filenames are inconsistent (for example `log.27Nov18.min.box.g++.1` and 
 
 ## Step 2: Extracting the Thermo Blocks
 
-The second script, `extract.sh`, loops over every file in `processed/` and used awk to do the extraction. Whenever line starts with Step, a new block begins, awk saves that line as the CSV header and opens a new file. While inside a block, every row is converted from whitespace-separated to comma-separated and written to that file. When a line starting with `Loop time of...` appears, the block is closed. Then it moves on the the next block where it again starts at `Step` and ends at `Loop time of...`. The output is one file per block, named `<log>_block<N>.csv`, for example `min_block_block3.csv`. Because the script only looks for these two markers, it handles the changing in `min_box` and `indent` without any special cases.
+The second script, `extract.sh`, loops over every file in `processed/` and used awk to do the extraction. Whenever line starts with Step, a new block begins, awk saves that line as the CSV header and opens a new file. While inside a block, every row is converted from whitespace-separated to comma-separated and written to that file. When a line starting with `Loop time of...` appears, the block is closed. Then it moves on the the next block where it again starts at `Step` and ends at `Loop time of...`. The output is one file per block, named `<log>_block<N>.csv`, for example `min_box_block3.csv`. Because the script only looks for these two markers, it handles the changing in `min_box` and `indent` without any special cases.
 
 ## Step 3: Summarizing the Extraction
 
@@ -85,7 +85,7 @@ The first plotting script makes a generic plot for every CSV. it reads the colum
 
 <div align="center"> <img src="plots/melt_block1.png"width="500"></div><div align="center">
 
-##### Figure 1. Example of a Generic Plot (Every Column vs Step) for the melt block
+**Figure 1. Example of a Generic Plot (Every Column vs Step) for the melt block**
 </div>
 
 
@@ -99,11 +99,11 @@ Figures 2 and 3 show the temperature and the total energy against the `Step` for
 
 <div align="center"> <img src="plots/curated_plots/Melt_Temp_Plot.png"width="500"></div><div align="center">
 
-##### Figure 2. Temperature vs. Step for the melt simulation
+**Figure 2. Temperature vs. Step for the melt simulation**
 </div><div align="center"><img src="plots/curated_plots/Melt_TotEng_Plot.png"width="500">
 </div><div align="center">
 
-##### Figure 3. Total Energy vs Step for the melt simulation
+**Figure 3. Total Energy vs Step for the melt simulation**
 
 </div>
 
@@ -117,14 +117,14 @@ The `indent` log has two blocks. In the first one the indenter is present, and i
 
 <div align="center"><img src="plots/curated_plots/Indenter_On_Off_Temp_Plot.png"width="500"></div><div align="center">
 
-##### Figure 4. Temperature Plot with Indenter On and Off
+**Figure 4. Temperature Plot with Indenter On and Off**
 </div><div align="center"><img src="plots/curated_plots/Indenter_On_Off_TotEng_Plot.png"width="500"></div><div align="center">
 
-##### Figure 5. Total Energy Plot with Indenter On and Off
+**Figure 5. Total Energy Plot with Indenter On and Off**
 
 </div><div align="center"><img src="plots/curated_plots/Indenter_On_Off_Vol_Plot.png"width="500"></div><div align="center">
 
-##### Figure 6. Volume Plot with Indenter On and Off
+**Figure 6. Volume Plot with Indenter On and Off**
 
 </div>
 
@@ -135,13 +135,13 @@ Figure 5 shows that indenter presence does affect total energy of the system. Wi
 Volume of the indenter simulation is showed in Figure 6. The volume rises in steps from about 440 to 480 when the indenter is turned on. After removal, it initially jumps to 490 before settling near 481 without ever going back to the initial 440 value. However, the volume in this simulation is nuanced. Looking at the `indent.log`, it shows that the boundary is `boundary   p s p`. This means that the LAMMPS simulations fit the atoms as they move in `y` in every step while the `x` and `z` lengths are fixed. This means that volume is the bounding box of the atoms and essentially tracks the vertical spread of the atoms. This vertical extent grew while the indenter pushed in, and it only partly recovers after removal. Moreover, looking at dimensions in the `indent.log` file shows `dimension 2` which means volume in this simulation is basically an area rather than volume as the only change happens in the `y` direction. 
 
 
-###### Energy vs. Indenter Position
+#### Energy vs. Indenter Position
 
 The `indent_min` log has seven blocks. The first one is an initial minimization before the indenter is introduced, and the other six minimize the system with the indenter at various distances: y = 13.0, 12.5, 12.0, 11.4, 11.2 and 11.0. For each of those six blocks I took the final row (the minimized state) and plotted it against the indenter position, which is shown in Figure 7.
 
 <div align="center"><img src="plots/curated_plots/Indenter_Distance_Plot.png"width="500"></div><div align="center">
 
-##### Figure 7. Final energy of each minimization vs indenter position
+**Figure 7. Final energy of each minimization vs indenter position**
 
 </div>
 
@@ -153,11 +153,11 @@ This `min_box` log is the most complex one, with eight blocks. Block 1 is the me
 
 <div align="center"><img src="plots/curated_plots/Min_Box_Atom_Min_Convergence_Plot.png"width="500"></div><div align="center">
 
-##### Figure 8. Convergence of the atoms-only minimization (Block 2)
+**Figure 8. Convergence of the atoms-only minimization (Block 2)**
 
 </div><div align="center"><img src="plots/curated_plots/Min_Box_Convergence_Plots.png"width="1000"></div><div align="center">
 
-##### Figure 9. Potential Energy vs. Step for the minimization blocks (Block 3 to 8)
+**Figure 9. Potential Energy vs. Step for the minimization blocks (Block 3 to 8)**
 
 </div>
 
@@ -170,19 +170,19 @@ Additionally, Block 3, 4, and 5 relax the box towards a target pressure with `bo
 
 <div align="center"><img src="plots/curated_plots/Block3-5_Pressures_Min_Box_Bar_Plot.png"width="700"></div><div align="center">
 
-##### Figure 10. Target vs. Achieved Pxx and Pyy for blocks 3 to 5
+**Figure 10. Target vs. Achieved Pxx and Pyy for blocks 3 to 5**
 
 </div><div align="center"><img src="plots/curated_plots/Block_3_Pressure_Convergence_Plots.png"width="700"></div><div align="center">
 
-##### Figure 11. Pressure Convergence for Block 3 (box/relax iso)
+**Figure 11. Pressure Convergence for Block 3 (box/relax iso)**
 
 </div><div align="center"><img src="plots/curated_plots/Block_4_Pressure_Convergence_Plots.png"width="700"></div><div align="center">
 
-##### Figure 12. Pressure Convergence for Block 4 (box/relax aniso)
+**Figure 12. Pressure Convergence for Block 4 (box/relax aniso)**
 
 </div><div align="center"><img src="plots/curated_plots/Block_5_Pressure_Convergence_Plots.png"width="700"></div><div align="center">
 
-##### Figure 13. Pressure Convergence for Block 5 (box/relax x=1.0, y=2.0)
+**Figure 13. Pressure Convergence for Block 5 (box/relax x=1.0, y=2.0)**
 
 </div>
 
