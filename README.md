@@ -33,13 +33,21 @@ LAMMPS_Project/
 └── README.md
 ```
 
-Requirements are Linux or WSL with bash 4+ and awk. Python 3 with pandas and matplotlib and other imports are required too which are mentioned in `requirement.txt`. To run the whole pipeline in bash:
+Requirements are Linux, WSL or macOS with bash 4+ and awk, and Python 3 and other imports too which are mentioned in `requirement.txt` (pandas, numpy, matplotlib, seaborn). The bar charts uses `Axes.grouped_bar`, so matplotlib 3.11 or newer is required. The pipeline was tested on WSL (Ubuntu) and macOS with Python 3.11.
+
+`organize.sh` uses an associative array, which needs bash 4+. The built-in bash on macOS (3.2) is too old, so the steup below creates a conda environment that includes a newer bash. To set up and run the whole pipline:
 
 ```bash
 git clone https://github.com/ashaheer1/LAMMPS_Project.git
 cd LAMMPS_Project
+conda create -n lammps -c conda-forge python=3.11 bash -y
+conda activate lammps
+pip install pandas numpy matplotlib seaborn
+chmod +x run_pipeline.sh scripts/*.sh
 ./run_pipeline.sh
 ```
+
+Run the pipeline in the same terminal where the environment is activated. On Linux or WSL with bash 4+ already installed, you can use `python3 -m venv venv` and `source venv/bin/activate` instead of conda.
 
 The driver script clears the old outputs, rebuilds everything from `raw/`, and writes the CSV files to `extracted/` and the plots to `plots/`. The `block_labels.csv` file is also copied to `extracted/` to assist in labeling blocks and while plotting these blocks.
 
@@ -68,7 +76,7 @@ The raw filenames are inconsistent (for example `log.27Nov18.min.box.g++.1` and 
 
 ## Step 2: Extracting the Thermo Blocks
 
-The second script, `extract.sh`, loops over every file in `processed/` and uses awk to do the extraction. Whenever line starts with `Step`, a new block begins, awk saves that line as the CSV header and opens a new file. While inside a block, every row is converted from whitespace-separated to comma-separated and written to that file. When a line starting with `Loop time of...` appears, the block is closed. Then it moves on to the next block where it again starts at `Step` and ends at `Loop time of...`. The output is one file per block, named `<log>_block<N>.csv`, for example `min_box_block3.csv`. Because the script only looks for these two markers, it handles the changing columns in `min_box` and `indent` without any special cases.
+The second script, `extract.sh`, loops over every file in `processed/` and uses awk to do the extraction. Whenever a line starts with `Step`, a new block begins, awk saves that line as the CSV header and opens a new file. While inside a block, every row is converted from whitespace-separated to comma-separated and written to that file. When a line starting with `Loop time of...` appears, the block is closed. Then it moves on to the next block where it again starts at `Step` and ends at `Loop time of...`. The output is one file per block, named `<log>_block<N>.csv`, for example `min_box_block3.csv`. Because the script only looks for these two markers, it handles the changing columns in `min_box` and `indent` without any special cases.
 
 ## Step 3: Summarizing the Extraction
 
@@ -149,7 +157,7 @@ As can be expected, the total energy rises as the indenter moves from y = 13.0 t
 
 #### Minimization and Box Relaxation (min_box)
 
-This `min_box` log is the most complex one, with eight blocks. Block 1 is the melt, which is similar to previous atomic melt simulation. Block 2 to 8 are minimizations with different settings (Table 1). Figure 8 shows the convergence of atoms-only minimization (Block 2), and Figure 9 shows the potential energy against the step for block 3 to 8. Neither axes are shared, because the minimizations converge in very different numbers of steps and final potential energy differs.
+This `min_box` log is the most complex one, with eight blocks. Block 1 is the melt, which is similar to previous atomic melt simulation. Block 2 to 8 are minimizations with different settings (Table 1). Figure 8 shows the convergence of atoms-only minimization (Block 2), and Figure 9 shows the potential energy against the step for block 3 to 8. Neither axis is shared, because the minimizations converge in very different numbers of steps and final potential energy differs.
 
 <div align="center"><img src="plots/curated_plots/Min_Box_Atom_Min_Convergence_Plot.png" width="500"></div><div align="center">
 
