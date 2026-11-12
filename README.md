@@ -33,7 +33,7 @@ LAMMPS_Project/
 └── README.md
 ```
 
-Requirements are Linux or WSL with bash 4+ and awk. Python 3 with pandas and matplotlib and other imports are required too. To run the whole pipeline in bash:
+Requirements are Linux or WSL with bash 4+ and awk. Python 3 with pandas and matplotlib and other imports are required too which are mentioned in `requirement.txt`. To run the whole pipeline in bash:
 
 ```bash
 git clone https://github.com/ashaheer1/LAMMPS_Project.git
