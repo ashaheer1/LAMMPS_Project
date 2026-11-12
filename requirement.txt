@@ -1,0 +1,6 @@
+Following libraries are required in python for scripts to work properly.
+
+pandas
+numpy
+matplotlib: Needs matplotlib version > 3.11 check using print(matplotlib.__version__)
+seaborn
